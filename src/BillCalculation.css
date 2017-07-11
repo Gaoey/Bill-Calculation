@@ -124,6 +124,16 @@ div.section{
   margin: 10%;
 }
 
+ul.code-list li{
+  list-style: none;
+  text-transform: uppercase;
+  padding: 1em;
+  margin-bottom: .125em;
+  display: block;
+  background-color: grey;
+  color:white;
+}
+
 @-webkit-keyframes appear {
   100% {
     opacity: 1;

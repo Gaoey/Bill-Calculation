@@ -44,6 +44,10 @@ class BillCalculation extends Component {
 
 
   render() {
+    var codes = this.state.codeList;
+    var codeList = codes.map(function(code){
+                        return <li>{code}</li>;
+                  })
     return (
       <div>
       <h1>Bill Calculation</h1>
@@ -60,8 +64,9 @@ class BillCalculation extends Component {
       <input type="submit" value="ADD" />
       </div>
       <div className="section">
-      <p>{this.state.code}</p>
-      <p>{this.state.people}</p>
+        <ul className="code-list">
+          {codeList}
+        </ul>
       </div>
       </form>
       </div>
