@@ -125,6 +125,15 @@ span.code-list{
   text-align: center;
 }
 
+div.hidden-box{
+  visibility: hidden;
+}
+
+div.visible-box{
+  display:block;
+  position: absolute;
+}
+
 @-webkit-keyframes appear {
   100% {
     opacity: 1;

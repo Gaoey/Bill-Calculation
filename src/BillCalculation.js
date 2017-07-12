@@ -17,6 +17,7 @@ class BillCalculation extends Component {
     this.submit = this.submit.bind(this);
     this.clearInput = this.clearInput.bind(this);
     this.calculation = this.calculation.bind(this);
+    this.codeEach = this.codeEach.bind(this);
 
   }
 
@@ -61,12 +62,23 @@ class BillCalculation extends Component {
     e.preventDefault();
   }
 
+  removeCode(index){
+    var codeArray = this.state.codeList;
+    codeArray.splice(index, 1);
+    this.setState({
+      codeList: codeArray,
+    });
+  }
+
+  codeEach(){
+    var codes = this.state.codeList;
+    return this.state.codeList.map((code, index)=>{
+          return <span className='code-list'>{code} | <a href="#" onClick={() => this.removeCode(index)}>X</a> &#09;&#09;</span> ;
+    });
+  }
 
   render() {
-    var codes = this.state.codeList;
-    var codeList = codes.map(function(code){
-                        return <span className='code-list'>{code}&#09;&#09;</span> ;
-                  })
+
     return (
       <div>
       <form onSubmit={this.submit}>
@@ -87,7 +99,7 @@ class BillCalculation extends Component {
         <input type="submit" value="CALCULATE"  onClick={this.calculation}/>
       </div>
       <div className="section">
-          {codeList}
+          {this.codeEach()}
       </div>
       </form>
       </div>
