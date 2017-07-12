@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './BillCalculation.css';
 import Box from './CouponBox.js'
+import {isDuplicate} from './Calculate.js';
 
 
 class BillCalculation extends Component {
@@ -35,10 +36,14 @@ class BillCalculation extends Component {
   submit(e){
     // add the code in array
     var codeArray = this.state.codeList;
-    codeArray.push(this.state.code);
-    this.setState({
-      codeList: codeArray,
-    });
+    if(codeArray.length == 0 || !isDuplicate(codeArray, this.state.code)){
+      codeArray.push(this.state.code);
+      if(codeArray.length <= 4){
+        this.setState({
+          codeList: codeArray,
+        });
+      }
+    }
     e.preventDefault();
   }
 
@@ -53,7 +58,7 @@ class BillCalculation extends Component {
       <h1>Bill Calculation</h1>
       <form onSubmit={this.submit}>
       <div className="section">
-      <input type="text" className="question" name="people" id="pp" required autoComplete="off" onClick={this.handleInputChange.bind(this)}/>
+      <input type="text" className="question" name="people" id="pp" required autoComplete="off" onChange={this.handleInputChange.bind(this)}/>
       <label htmlFor="pp"><span>HOW MANY PEOPLE?</span></label>
       </div>
       <div className="section">
@@ -68,6 +73,10 @@ class BillCalculation extends Component {
           {codeList}
         </ul>
       </div>
+        <Box
+          codeList={this.state.codeList}
+          people={this.state.people}
+        />
       </form>
       </div>
     );
