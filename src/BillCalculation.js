@@ -42,8 +42,6 @@ class BillCalculation extends Component {
   }
 
   calculation(){
-    console.log(this.state.people);
-    console.log(this.state.codeList);
     this.setState({
       promotion: bill_calculation(this.state.people, this.state.codeList),
     });
