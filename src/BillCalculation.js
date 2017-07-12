@@ -37,10 +37,7 @@ class BillCalculation extends Component {
 
   clearInput(e){
     this.setState({
-      people: 0,
-      code:"",
       codeList:[],
-      promotion: "",
     })
   }
 
