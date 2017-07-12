@@ -50,10 +50,14 @@ export function bill_calculation(people, codeList){
       promotion_condition(codeList[i], people);
     }
 
-  if(mn(promotion_rate).length == 0){
-    alert(" Your Code is not Correct ");
+  var props = mn(promotion_rate);
+  if(props.length == 0){
+    alert("Your Code is not Correct ");
+  }else{
+    alert('Your promotion should be "'+props.name+'", You Got '+props.detail);
   }
-  return mn(promotion_rate);
+
+  return props;
 }
 
 export function isDuplicate(codeList, current_code){

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './BillCalculation.css';
-import Box from './CouponBox.js'
 import {isDuplicate, bill_calculation} from './Calculate.js';
 
 
@@ -46,6 +45,8 @@ class BillCalculation extends Component {
   }
 
   calculation(){
+    console.log(this.state.people);
+    console.log(this.state.codeList);
     this.setState({
       promotion: bill_calculation(this.state.people, this.state.codeList),
     });
@@ -93,12 +94,6 @@ class BillCalculation extends Component {
       <div className="section">
           {codeList}
       </div>
-      <div className="section">
-        <Box
-          promotion={this.state.promotion}
-        />
-      </div>
-
       </form>
       </div>
     );
