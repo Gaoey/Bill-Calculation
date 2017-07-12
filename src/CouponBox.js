@@ -21,7 +21,7 @@ class CouponBox extends Component {
   render() {
     return (
       <div className="section">
-        <p>{this.state.promotion}</p>
+        <p>{this.state.promotion.name}</p>
         <button name="cal" value="calculate" onClick={this.calculation}>calculate</button>
       </div>
     );
