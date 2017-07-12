@@ -40,7 +40,8 @@ class BillCalculation extends Component {
     this.setState({
       people: 0,
       code:"",
-      codeList:[]
+      codeList:[],
+      promotion: "",
     })
   }
 
@@ -68,12 +69,14 @@ class BillCalculation extends Component {
   render() {
     var codes = this.state.codeList;
     var codeList = codes.map(function(code){
-                        return <span>[{code}]&#09;&#09;</span> ;
+                        return <span className='code-list'>{code}&#09;&#09;</span> ;
                   })
     return (
       <div>
-      <h1>Bill Calculation</h1>
       <form onSubmit={this.submit}>
+      <div className="section">
+      <h1>BILL CALCULATION</h1>
+      </div>
       <div className="section">
       <input type="text" className="question" name="people" id="pp" required autoComplete="off" onChange={this.handleInputChange.bind(this)}/>
       <label htmlFor="pp"><span>HOW MANY PEOPLE?</span></label>
@@ -82,13 +85,15 @@ class BillCalculation extends Component {
       <input name="code" className="question" rows="2" id="cd" required autoComplete="off" onChange={this.handleInputChange.bind(this)}></input>
       <label htmlFor="cd"><span>COUPON CODE</span></label>
       </div>
-      <div className="section code-List">
-          <p>COUPON CODE: {codeList}</p>
-      </div>
       <div className="section">
         <input type="submit" value="ADD" />
         <input type="reset" value="CLEAR" onClick={this.clearInput}/>
         <input type="submit" value="CALCULATE"  onClick={this.calculation}/>
+      </div>
+      <div className="section">
+          {codeList}
+      </div>
+      <div className="section">
         <Box
           promotion={this.state.promotion}
         />

@@ -113,21 +113,16 @@ input[type="submit"]:active, input[type="reset"]:active{
 
 
 div.section{
-  margin: 10%;
+  margin: 5% 0 0 10%;
 }
 
-/*div.code-list{
-  list-style: none;
+span.code-list{
   text-transform: uppercase;
-  padding: 1em;
-  margin-bottom: .125em;
-  display: block;
-  background-color: grey;
-  color:white;
-}*/
-
-span{
-  text-transform: uppercase;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin-right: 2%;
+  text-align: center;
 }
 
 @-webkit-keyframes appear {
