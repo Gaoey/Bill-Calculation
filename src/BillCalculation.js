@@ -15,6 +15,7 @@ class BillCalculation extends Component {
     };
 
     this.submit = this.submit.bind(this);
+    this.clearInput = this.clearInput.bind(this);
 
   }
 
@@ -31,6 +32,14 @@ class BillCalculation extends Component {
         code: e.target.value,
       })
     }
+  }
+
+  clearInput(e){
+    this.setState({
+      people: 0,
+      code:"",
+      codeList:[]
+    })
   }
 
   submit(e){
@@ -66,7 +75,8 @@ class BillCalculation extends Component {
       <label htmlFor="cd"><span>COUPON CODE</span></label>
       </div>
       <div className="section">
-      <input type="submit" value="ADD" />
+        <input type="submit" value="ADD" />
+        <input type="reset" value="CLEAR" onClick={this.clearInput}/>
       </div>
       <div className="section">
         <ul className="code-list">

@@ -95,30 +95,23 @@ input.question + label > span {
   transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
 }
 
-input[type="submit"] {
+input[type="submit"], input[type="reset"] {
   -webkit-transition: opacity 0.2s ease, background 0.2s ease;
   transition: opacity 0.2s ease, background 0.2s ease;
-  display: block;
-  margin: 10px 0 0 0;
+  display: inline-block;
+  margin: 10px 5px 0 0;
   padding: 10px;
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, input[type="reset"]:hover{
   background: #EEE;
 }
 
-input[type="submit"]:active {
+input[type="submit"]:active, input[type="reset"]:active{
   background: #999;
 }
-input.question:valid ~ input[type="submit"] {
-  -webkit-animation: appear 1s forwards;
-  animation: appear 1s forwards;
-}
 
-input.question:invalid ~ input[type="submit"] {
-  display: none;
-}
 
 div.section{
   margin: 10%;
