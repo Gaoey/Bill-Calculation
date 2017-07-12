@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './BillCalculation.css';
 import Box from './CouponBox.js'
-import {isDuplicate} from './Calculate.js';
+import {isDuplicate, bill_calculation} from './Calculate.js';
 
 
 class BillCalculation extends Component {
@@ -11,11 +11,13 @@ class BillCalculation extends Component {
     this.state = {
       people: 0,
       code:"",
-      codeList:[]
+      codeList:[],
+      promotion: "",
     };
 
     this.submit = this.submit.bind(this);
     this.clearInput = this.clearInput.bind(this);
+    this.calculation = this.calculation.bind(this);
 
   }
 
@@ -42,6 +44,12 @@ class BillCalculation extends Component {
     })
   }
 
+  calculation(){
+    this.setState({
+      promotion: bill_calculation(this.state.people, this.state.codeList),
+    });
+  }
+
   submit(e){
     // add the code in array
     var codeArray = this.state.codeList;
@@ -60,7 +68,7 @@ class BillCalculation extends Component {
   render() {
     var codes = this.state.codeList;
     var codeList = codes.map(function(code){
-                        return <li>{code}</li>;
+                        return <span>[{code}]&#09;&#09;</span> ;
                   })
     return (
       <div>
@@ -74,19 +82,18 @@ class BillCalculation extends Component {
       <input name="code" className="question" rows="2" id="cd" required autoComplete="off" onChange={this.handleInputChange.bind(this)}></input>
       <label htmlFor="cd"><span>COUPON CODE</span></label>
       </div>
+      <div className="section code-List">
+          <p>COUPON CODE: {codeList}</p>
+      </div>
       <div className="section">
         <input type="submit" value="ADD" />
         <input type="reset" value="CLEAR" onClick={this.clearInput}/>
-      </div>
-      <div className="section">
-        <ul className="code-list">
-          {codeList}
-        </ul>
-      </div>
+        <input type="submit" value="CALCULATE"  onClick={this.calculation}/>
         <Box
-          codeList={this.state.codeList}
-          people={this.state.people}
+          promotion={this.state.promotion}
         />
+      </div>
+
       </form>
       </div>
     );

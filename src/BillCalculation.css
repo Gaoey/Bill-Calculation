@@ -16,7 +16,6 @@ h1 {
 }
 
 input,
-span,
 label{
   /*font-family: 'Ubuntu', sans-serif;*/
   display: block;
@@ -117,7 +116,7 @@ div.section{
   margin: 10%;
 }
 
-ul.code-list li{
+/*div.code-list{
   list-style: none;
   text-transform: uppercase;
   padding: 1em;
@@ -125,6 +124,10 @@ ul.code-list li{
   display: block;
   background-color: grey;
   color:white;
+}*/
+
+span{
+  text-transform: uppercase;
 }
 
 @-webkit-keyframes appear {
