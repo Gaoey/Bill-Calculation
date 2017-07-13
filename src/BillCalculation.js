@@ -12,12 +12,15 @@ class BillCalculation extends Component {
       code:"",
       codeList:[],
       promotion: "",
+      editActive: false,
+      current_index: 0,
     };
 
     this.submit = this.submit.bind(this);
     this.clearInput = this.clearInput.bind(this);
     this.calculation = this.calculation.bind(this);
-    this.codeEach = this.codeEach.bind(this);
+    this.couponCodes = this.couponCodes.bind(this);
+    this.selectCodeToUpdate = this.selectCodeToUpdate.bind(this);
 
   }
 
@@ -52,10 +55,13 @@ class BillCalculation extends Component {
     // add the code in array
     var codeArray = this.state.codeList;
     if(codeArray.length == 0 || !isDuplicate(codeArray, this.state.code)){
-      codeArray.push(this.state.code);
+      if(this.state.code !== null){
+        codeArray.push(this.state.code);
+      }
       if(codeArray.length <= 4){
         this.setState({
           codeList: codeArray,
+          editActive: false,
         });
       }
     }
@@ -70,10 +76,30 @@ class BillCalculation extends Component {
     });
   }
 
-  codeEach(){
+  selectCodeToUpdate(index, event){
+    this.setState({
+        editActive: true,
+        current_index: index,
+    });
+  }
+
+  updateCode(index, e){
+  var codeArray = this.state.codeList;
+  codeArray[index] = e.target.value;
+  this.setState({
+    codeList: codeArray,
+    code: null,
+  });
+  }
+
+  couponCodes(){
     var codes = this.state.codeList;
-    return this.state.codeList.map((code, index)=>{
-          return <span className='code-list'>{code} | <a href="#" onClick={() => this.removeCode(index)}>X</a> &#09;&#09;</span> ;
+    return this.state.codeList.map((code, index, arr)=>{
+          return <span className='code-list'>
+                  <span>{code}</span> |
+                  <a href="#" name="edit" onClick={()=>this.selectCodeToUpdate(index)}> edit</a> |
+                  <a href="#" onClick={() => this.removeCode(index)}>X</a>
+                 &#09;&#09;</span> ;
     });
   }
 
@@ -99,7 +125,10 @@ class BillCalculation extends Component {
         <input type="submit" value="CALCULATE"  onClick={this.calculation}/>
       </div>
       <div className="section">
-          {this.codeEach()}
+          {this.couponCodes()}
+      </div>
+      <div className={this.state.editActive ? "section visible-box editBox": "hidden-box" }>
+          <input type="text" value={this.state.codeList[this.state.current_index]} name="edit-box" onChange={this.updateCode.bind(this, this.state.current_index)} onSubmit={this.submit} placeholder="edit here"/>
       </div>
       </form>
       </div>

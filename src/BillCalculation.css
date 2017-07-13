@@ -125,13 +125,17 @@ span.code-list{
   text-align: center;
 }
 
-div.hidden-box{
-  visibility: hidden;
+.hidden-box{
+  display: none;
 }
 
-div.visible-box{
+.visible-box{
   display:block;
   position: absolute;
+}
+
+.editBox{
+  background-color: pink;
 }
 
 @-webkit-keyframes appear {
