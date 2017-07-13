@@ -24,16 +24,16 @@ function promotion_condition(code, people){
        promotion_rate[size++] = { name:"4PAY3", rate:main_rate * 3, detail:" Come 4 pay 3"};
     }
 
+    if(total_rate > 6000){
+       promotion_rate[size++] = { name:"DISCOUNT25%", rate:total_rate / 1.25,  detail:" Discount 25% "};
+    }
+
     if(total_rate > 1000 && code === "LUCKY ONE"){
-      promotion_rate[size++] = { name:"LUCKY ONE", rate:total_rate * 1.15, detail:" Discount 15% "};
+      promotion_rate[size++] = { name:"LUCKY ONE", rate:total_rate / 1.15, detail:" Discount 15% "};
     }
 
    if(people == 2 && code === "LUCKY TWO"){
-     promotion_rate[size++] = { name:"LUCKY TWO", rate:total_rate * 1.20, detail:" Discount 20% "};
-   }
-
-   if(total_rate > 6000){
-      promotion_rate[size++] = { name:"DISCOUNT25%", rate:total_rate * 1.25,  detail:" Discount 25% "};
+     promotion_rate[size++] = { name:"LUCKY TWO", rate:total_rate / 1.20, detail:" Discount 20% "};
    }
 
 }
