@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './BillCalculation.css';
-import {isDuplicate, bill_calculation} from './Calculate.js';
+import {isDuplicate, bill_calculation, pay_least} from './Calculate.js';
 
 
 class BillCalculation extends Component {
@@ -21,6 +21,7 @@ class BillCalculation extends Component {
     this.calculation = this.calculation.bind(this);
     this.couponCodes = this.couponCodes.bind(this);
     this.selectCodeToUpdate = this.selectCodeToUpdate.bind(this);
+    this.payLeast = this.payLeast.bind(this);
 
   }
 
@@ -57,6 +58,8 @@ class BillCalculation extends Component {
     if(codeArray.length == 0 || !isDuplicate(codeArray, this.state.code)){
       if(this.state.code !== null){
         codeArray.push(this.state.code);
+      }else{
+        return ;
       }
       if(codeArray.length <= 4){
         this.setState({
@@ -92,6 +95,11 @@ class BillCalculation extends Component {
   });
   }
 
+  payLeast(){
+    var people_number = this.state.people;
+    pay_least(people_number);
+  }
+
   couponCodes(){
     var codes = this.state.codeList;
     return this.state.codeList.map((code, index, arr)=>{
@@ -120,9 +128,10 @@ class BillCalculation extends Component {
       <label htmlFor="cd"><span>COUPON CODE</span></label>
       </div>
       <div className="section">
-        <input type="submit" value="ADD" />
+        <input type="submit" value="ADD"/>
         <input type="reset" value="CLEAR" onClick={this.clearInput}/>
         <input type="submit" value="CALCULATE"  onClick={this.calculation}/>
+        <input type="submit" value="PAY LEAST"  onClick={this.payLeast}/>
       </div>
       <div className="section">
           {this.couponCodes()}

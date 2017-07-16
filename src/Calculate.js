@@ -21,21 +21,60 @@ function promotion_condition(code, people){
   code = code.toUpperCase()
 
     if(people == 4 && code === "4PAY3"){
-       promotion_rate[size++] = { name:"4PAY3", rate:main_rate * 3, detail:" Come 4 pay 3"};
+      var price = parseInt(main_rate * 3);
+       promotion_rate[size++] = { name:"4PAY3", rate: price, detail:" Come 4 pay 3"};
     }
 
     if(total_rate > 6000){
-       promotion_rate[size++] = { name:"DISCOUNT25%", rate:total_rate - (total_rate * 0.25),  detail:" Discount 25% "};
+      var price = parseInt(total_rate - (total_rate * 0.25));
+       promotion_rate[size++] = { name:"DISCOUNT25%", rate: price,  detail:" Discount 25% "};
     }
 
     if(total_rate > 1000 && code === "LUCKY ONE"){
-      promotion_rate[size++] = { name:"LUCKY ONE", rate:total_rate - (total_rate * 0.15), detail:" Discount 15% "};
+      var price = parseInt(total_rate - (total_rate * 0.15));
+      promotion_rate[size++] = { name:"LUCKY ONE", rate:price, detail:" Discount 15% "};
     }
 
    if(people == 2 && code === "LUCKY TWO"){
-     promotion_rate[size++] = { name:"LUCKY TWO", rate:total_rate -(total_rate * 0.20), detail:" Discount 20% "};
+     var price =parseInt(total_rate -(total_rate * 0.20));
+     promotion_rate[size++] = { name:"LUCKY TWO", rate: price, detail:" Discount 20% "};
    }
 
+}
+
+function pay_least_condition(people){
+  var total_rate = people*main_rate;
+
+    if(people == 4){
+      var price = parseInt(main_rate * 3);
+       promotion_rate[size++] = { name:"4PAY3", rate: price, detail:" มา 4 จ่าย 3"};
+    }
+
+    if(total_rate > 6000){
+       var price = parseInt(total_rate - (total_rate * 0.25));
+       promotion_rate[size++] = { name:"DISCOUNT25%", rate: price,  detail:" ลดราคา 25% "};
+    }
+
+    if(total_rate > 1000){
+      var price = parseInt(total_rate - (total_rate * 0.15));
+      promotion_rate[size++] = { name:"LUCKY ONE", rate: price, detail:" ลดราคา 15% "};
+    }
+
+   if(people == 2){
+     var price = parseInt(total_rate -(total_rate * 0.20));
+     promotion_rate[size++] = { name:"LUCKY TWO", rate: price, detail:" ลดราคา 20% "};
+   }
+
+}
+
+export function pay_least(people){
+  if(people == 0){
+    return "";
+  }
+  promotion_rate = {name:"", rate:0, detail:""};
+  pay_least_condition(people)
+  var props = mn(promotion_rate);
+  alert("โปรโมชั่นที่จ่ายน้อยสุดของคุณคือ '"+props.name+"', จ่ายในราคา: "+props.rate+" บาท");
 }
 
 export function bill_calculation(people, codeList){
@@ -45,16 +84,28 @@ export function bill_calculation(people, codeList){
    }
 
    size = 0;
+  //คูปองปกติ
    promotion_rate = {name:"", rate:0, detail:""};
    for(var i = 0; i<codeList.length;i++){
       promotion_condition(codeList[i], people);
     }
-
   var props = mn(promotion_rate);
+
+  // ในราคาที่น้อยที่สุด
+  promotion_rate = {name:"", rate:0, detail:""};
+  pay_least_condition(people)
+  var payleast = mn(promotion_rate);
+
   if(props.length == 0){
-    alert("Your Code is not Correct ");
+    alert("รหัสคูปองโปรโมชั่นคุณไม่ถูกต้อง");
   }else{
-    alert('Your promotion should be "'+props.name+'", You Got '+props.detail);
+    if(payleast.name === props.name){
+      alert('โปรโมชั่นที่ดีที่สุดคือ : '+props.name+', ได้รับส่วนลด '+props.detail+', จ่ายในราคา '+props.rate+' บาท');
+    }else{
+      alert('โปรโมชั่นที่คุณใช้คือ : '+props.name+', ได้รับส่วนลด '+props.detail+', จ่ายในราคา '+props.rate+' บาท'+
+      ', แต่เราแนะนำโปรโมชั่นที่ดีกว่าคือ​ : '+payleast.name+', ซึ่งได้รับส่วนลด'+payleast.detail+', จ่ายในราคา '+payleast.rate+' บาท'
+      );
+    }
   }
 
   return props;
